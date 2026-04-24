@@ -71,3 +71,12 @@ services:
       RABBITMQ_OUTPUT_QUEUE: collecte_queue
     command: ["python", "src/main.py"]
     restart: unless-stopped
+
+  ms-analyse:
+    build:
+      context: ./ms-analyse
+    container_name: ms-analyse
+    ports:
+      - "8000:8000"
+    command: ["uvicorn", "src.main:app", "--host", "0.0.0.0", "--port", "8000"]
+    restart: unless-stopped
