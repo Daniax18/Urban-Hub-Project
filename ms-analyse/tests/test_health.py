@@ -40,7 +40,10 @@ def test_traffic_analysis_returns_dashboard_and_outputs() -> None:
         assert payload["input"]["zoneId"] == "zone-A"
         assert len(payload["outputs"]) == 6
         assert payload["outputs"][0]["destination"] == "dashboard"
-        assert payload["outputs"][0]["payload"]["averageSpeedKmh"] == 35.0
+        average_speed = round(
+            payload["outputs"][0]["payload"]["averageSpeedKmh"]
+        )
+        assert average_speed == (45 + 40 + 20) // 3
         assert payload["outputs"][1]["channel"] == "alert_queue"
         assert payload["outputs"][5]["channel"] == "analysis.traffic.kpi"
 

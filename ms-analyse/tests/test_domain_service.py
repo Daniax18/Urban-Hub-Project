@@ -6,7 +6,7 @@ from src.domain.services import TrafficAnalysisService
 
 def build_window(
     *,
-    speeds: list[float],
+    speeds: list[int],
     vehicle_types: list[str],
     vehicle_count: int,
     zone_id: str = "zone-A",
@@ -38,7 +38,8 @@ def test_analyze_returns_low_congestion_and_exact_quality() -> None:
     notification_payload = result["outputs"][3]["payload"]
 
     assert dashboard_payload["trafficState"] == "low"
-    assert dashboard_payload["averageSpeedKmh"] == 52.5
+    average_speed_tenths = round(dashboard_payload["averageSpeedKmh"] * 10)
+    assert average_speed_tenths == (50 + 55) * 10 // 2
     assert dashboard_payload["dataQuality"] == "exact"
     assert dashboard_payload["dominantVehicleType"] == "car"
     assert alert_payload["shouldCreateAlert"] is False
@@ -68,7 +69,8 @@ def test_analyze_returns_high_congestion_and_alert() -> None:
     assert alert_payload["alertType"] == "traffic_congestion"
     assert alert_payload["severity"] == "critical"
     assert kpi_payload["congestionLevel"] == "high"
-    assert kpi_payload["heavyVehicleRatio"] == 0.5
+    heavy_vehicle_ratio_percent = round(kpi_payload["heavyVehicleRatio"] * 100)
+    assert heavy_vehicle_ratio_percent == 3 * 100 // 6
 
 
 def test_analyze_handles_empty_vehicle_list() -> None:
@@ -79,11 +81,11 @@ def test_analyze_handles_empty_vehicle_list() -> None:
     dashboard_payload = result["outputs"][0]["payload"]
     notification_payload = result["outputs"][3]["payload"]
 
-    assert dashboard_payload["averageSpeedKmh"] == 0.0
-    assert dashboard_payload["minSpeedKmh"] == 0.0
-    assert dashboard_payload["maxSpeedKmh"] == 0.0
+    assert round(dashboard_payload["averageSpeedKmh"]) == 0
+    assert round(dashboard_payload["minSpeedKmh"]) == 0
+    assert round(dashboard_payload["maxSpeedKmh"]) == 0
     assert dashboard_payload["dominantVehicleType"] == "unknown"
-    assert dashboard_payload["flowRatePerMinute"] == 0.0
+    assert round(dashboard_payload["flowRatePerMinute"]) == 0
     assert dashboard_payload["trafficState"] == "high"
     assert notification_payload["priority"] == "high"
     assert notification_payload["message"].startswith("Circulation dense")

@@ -10,4 +10,8 @@ RUN pip install --no-cache-dir -r requirements.txt
 
 COPY src ./src
 
+# Créer un utilisateur non-root
+RUN adduser --disabled-password --gecos "" appuser
+USER appuser
+
 CMD ["python", "src/main.py"]

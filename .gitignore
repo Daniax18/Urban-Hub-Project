@@ -9,6 +9,9 @@ venv/
 ms-alerte-usager/.venv/
 ms-alerte-usager/venv/
 
+ms-collecte/.venv/
+ms-collecte/venv/
+
 # Build and packaging
 build/
 dist/
@@ -50,3 +53,4 @@ flake8-report.txt
 
 # Project-specific generated files
 ms-alerte-usager/.pytest_cache/
+ms-collecte/.pytest_cache/
