@@ -12,7 +12,7 @@ from src.domain.entities import NormalizedIoTWindow, NormalizedVehicle
 
 
 def test_normalized_window_to_dict_with_multiple_vehicles():
-    payload = NormalizedIoTWindow(
+    payload: NormalizedIoTWindow = NormalizedIoTWindow(
         sensor_id="sensor-9",
         zone_id="zone-Z",
         window_start="2026-04-11T10:00:00Z",
@@ -54,7 +54,7 @@ def test_consumer_callback_raises_for_invalid_json():
         consumer.callback(None, None, None, b"{invalid json")
 
 
-def test_publisher_handles_connection_error_and_does_not_raise(monkeypatch, capsys):
+def test_publisher_handles_connection_error(monkeypatch, capsys):
     publisher = RabbitMQPublisher()
 
     def fake_blocking_connection(_):
@@ -62,7 +62,7 @@ def test_publisher_handles_connection_error_and_does_not_raise(monkeypatch, caps
 
     monkeypatch.setattr(pika, "BlockingConnection", fake_blocking_connection)
 
-    payload = NormalizedIoTWindow(
+    payload: NormalizedIoTWindow = NormalizedIoTWindow(
         sensor_id="sensor-1",
         zone_id="zone-A",
         window_start="2026-04-11T10:00:00Z",
@@ -85,7 +85,7 @@ def test_publisher_handles_os_error_and_does_not_raise(monkeypatch, capsys):
 
     monkeypatch.setattr(pika, "BlockingConnection", fake_blocking_connection)
 
-    payload = NormalizedIoTWindow(
+    payload: NormalizedIoTWindow = NormalizedIoTWindow(
         sensor_id="sensor-1",
         zone_id="zone-A",
         window_start="2026-04-11T10:00:00Z",

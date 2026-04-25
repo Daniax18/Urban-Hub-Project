@@ -19,7 +19,7 @@ class MongoIoTRepository(IoTRepositoryPort):
         """
         self.collection = collection
 
-    def save(self, payload: NormalizedIoTWindow):
+    def save(self, payload: NormalizedIoTWindow) -> None:
         """Enregistre le document normalise dans MongoDB.
 
         Args:

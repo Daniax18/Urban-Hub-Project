@@ -20,7 +20,7 @@ class RabbitMQPublisher(PublisherPort):
         self.rabbitmq_host = os.getenv("RABBITMQ_HOST", "localhost")
         self.queue_name = os.getenv("RABBITMQ_OUTPUT_QUEUE", "collecte_queue")
 
-    def publish(self, payload: NormalizedIoTWindow):
+    def publish(self, payload: NormalizedIoTWindow) -> None:
         """Publie un document normalise sur la file RabbitMQ de collecte.
 
         Args:

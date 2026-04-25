@@ -7,7 +7,7 @@ class PublisherPort(ABC):
     """Contrat de publication d'un message normalise."""
 
     @abstractmethod
-    def publish(self, payload: NormalizedIoTWindow):
+    def publish(self, payload: NormalizedIoTWindow) -> None:
         """Publie la charge utile normalisee vers un systeme externe.
 
         Args:

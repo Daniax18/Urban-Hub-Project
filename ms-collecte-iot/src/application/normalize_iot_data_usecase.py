@@ -95,11 +95,11 @@ class NormalizeIoTDataUseCase:
         )
 
     @staticmethod
-    def _parse_speed(raw_speed: str) -> int | None:
+    def _parse_speed(raw_speed: str | None) -> int | None:
         """Extrait la vitesse numerique en km/h depuis une chaine brute.
 
         Args:
-            raw_speed (str): Valeur brute comme ``"45km/h"``.
+            raw_speed (str | None): Valeur brute comme ``"45km/h"``.
 
         Returns:
             int | None: Vitesse convertie en entier, ou ``None`` si aucune
