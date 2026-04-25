@@ -59,7 +59,7 @@ class RabbitMQConsumer(EventConsumerPort):
         )
         self.use_case.execute(payload)
 
-    def start_consuming(self):
+    def start_consuming(self) -> None:
         """Ouvre la connexion RabbitMQ et ecoute la file des donnees brutes.
 
         Returns:

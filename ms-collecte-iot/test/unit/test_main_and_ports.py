@@ -5,6 +5,17 @@ from src.ports.repository_port import IoTRepositoryPort
 from src.domain.entities import NormalizedIoTWindow
 
 
+def build_normalized_payload() -> NormalizedIoTWindow:
+    return NormalizedIoTWindow(
+        sensor_id="sensor-1",
+        zone_id="zone-A",
+        window_start="2026-04-11T10:00:00Z",
+        window_end="2026-04-11T10:00:15Z",
+        vehicles=[],
+        vehicle_count=0,
+    )
+
+
 def test_main_wires_dependencies_and_starts_consumer(monkeypatch):
     calls = {}
     fake_collection = object()
@@ -29,7 +40,7 @@ def test_main_wires_dependencies_and_starts_consumer(monkeypatch):
         def __init__(self, use_case):
             calls["consumer_use_case"] = use_case
 
-        def start_consuming(self):
+        def start_consuming(self) -> None:
             calls["consumer_started"] = True
 
     monkeypatch.setattr("src.main.MongoClient", FakeMongoClient)
@@ -76,7 +87,7 @@ def test_main_wires_dependencies_and_starts_consumer(monkeypatch):
 
 def test_event_consumer_port_abstract_method_can_be_called_via_super():
     class DummyConsumer(EventConsumerPort):
-        def start_consuming(self):
+        def start_consuming(self) -> None:
             return super().start_consuming()
 
     assert DummyConsumer().start_consuming() is None
@@ -84,15 +95,15 @@ def test_event_consumer_port_abstract_method_can_be_called_via_super():
 
 def test_repository_port_abstract_method_can_be_called_via_super():
     class DummyRepository(IoTRepositoryPort):
-        def save(self, payload: NormalizedIoTWindow):
+        def save(self, payload: NormalizedIoTWindow) -> None:
             return super().save(payload)
 
-    assert DummyRepository().save(None) is None
+    assert DummyRepository().save(build_normalized_payload()) is None
 
 
 def test_publisher_port_abstract_method_can_be_called_via_super():
     class DummyPublisher(PublisherPort):
-        def publish(self, payload: NormalizedIoTWindow):
+        def publish(self, payload: NormalizedIoTWindow) -> None:
             return super().publish(payload)
 
-    assert DummyPublisher().publish(None) is None
+    assert DummyPublisher().publish(build_normalized_payload()) is None

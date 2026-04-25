@@ -7,7 +7,7 @@ class IoTRepositoryPort(ABC):
     """Contrat de persistence des donnees IoT normalisees."""
 
     @abstractmethod
-    def save(self, payload: NormalizedIoTWindow):
+    def save(self, payload: NormalizedIoTWindow) -> None:
         """Enregistre une charge utile normalisee dans le stockage choisi.
 
         Args:

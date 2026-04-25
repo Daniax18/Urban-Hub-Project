@@ -12,4 +12,8 @@ COPY src ./src
 COPY test ./test
 COPY conftest.py pytest.ini ./
 
+# Créer un utilisateur non-root
+RUN adduser --disabled-password --gecos "" appuser
+USER appuser
+
 CMD ["python", "src/main.py"]
