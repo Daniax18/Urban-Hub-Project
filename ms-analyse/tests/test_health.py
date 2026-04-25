@@ -1,4 +1,5 @@
 import os
+from unittest.mock import Mock, patch
 
 os.environ["DATABASE_URL"] = "sqlite:///./test_ms_analyse.db"
 
@@ -64,3 +65,19 @@ def test_dashboard_endpoint_returns_latest_analysis() -> None:
 
         assert response.status_code == 200
         assert response.json()["items"][0]["zoneId"] == "zone-B"
+
+
+def test_lifespan_starts_consumer_when_enabled() -> None:
+    with patch.dict(os.environ, {"ENABLE_RABBITMQ_CONSUMER": "true"}):
+        with patch("src.main.RabbitMQConsumer") as consumer_cls, patch("src.main.Thread") as thread_cls:
+            consumer_instance = Mock()
+            consumer_cls.return_value = consumer_instance
+            thread_instance = Mock()
+            thread_cls.return_value = thread_instance
+
+            with TestClient(app):
+                pass
+
+    consumer_cls.assert_called_once()
+    thread_cls.assert_called_once_with(target=consumer_instance.start_consuming, daemon=True)
+    thread_instance.start.assert_called_once()
