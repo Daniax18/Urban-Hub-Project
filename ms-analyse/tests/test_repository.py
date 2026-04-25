@@ -16,7 +16,7 @@ def build_analysis_result(zone_id: str) -> dict:
                     "sensorId": f"sensor-{zone_id}",
                     "zoneId": zone_id,
                     "trafficState": "medium",
-                    "averageSpeedKmh": 35.0,
+                    "averageSpeedKmh": 35,
                     "vehicleCount": 3,
                     "windowStart": datetime(2026, 4, 11, 10, 0, tzinfo=timezone.utc).isoformat(),
                     "windowEnd": datetime(2026, 4, 11, 10, 0, 15, tzinfo=timezone.utc).isoformat(),
