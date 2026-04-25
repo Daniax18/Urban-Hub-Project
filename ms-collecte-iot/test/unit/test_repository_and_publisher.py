@@ -50,7 +50,9 @@ def test_publisher_declares_queue_and_publishes_json(monkeypatch):
         captured["params"] = params
         return fake_connection
 
-    monkeypatch.setattr(pika, "ConnectionParameters", fake_connection_parameters)
+    monkeypatch.setattr(
+        pika, "ConnectionParameters", fake_connection_parameters
+    )
     monkeypatch.setattr(pika, "BlockingConnection", fake_blocking_connection)
 
     payload = NormalizedIoTWindow(
@@ -66,7 +68,9 @@ def test_publisher_declares_queue_and_publishes_json(monkeypatch):
 
     assert captured["host"] == publisher.rabbitmq_host
     assert captured["params"] == "params"
-    fake_channel.queue_declare.assert_called_once_with(queue=publisher.queue_name)
+    fake_channel.queue_declare.assert_called_once_with(
+        queue=publisher.queue_name
+    )
     fake_channel.basic_publish.assert_called_once_with(
         exchange="",
         routing_key=publisher.queue_name,

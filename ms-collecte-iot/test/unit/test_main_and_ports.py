@@ -50,9 +50,15 @@ def test_main_wires_dependencies_and_starts_consumer(monkeypatch):
         calls["use_case_instance"] = fake_use_case
         return fake_use_case
 
-    monkeypatch.setattr("src.main.MongoIoTRepository", fake_repository_factory)
-    monkeypatch.setattr("src.main.RabbitMQPublisher", fake_publisher_factory)
-    monkeypatch.setattr("src.main.NormalizeIoTDataUseCase", fake_use_case_factory)
+    monkeypatch.setattr(
+        "src.main.MongoIoTRepository", fake_repository_factory
+    )
+    monkeypatch.setattr(
+        "src.main.RabbitMQPublisher", fake_publisher_factory
+    )
+    monkeypatch.setattr(
+        "src.main.NormalizeIoTDataUseCase", fake_use_case_factory
+    )
     monkeypatch.setattr("src.main.RabbitMQConsumer", FakeConsumer)
 
     main()

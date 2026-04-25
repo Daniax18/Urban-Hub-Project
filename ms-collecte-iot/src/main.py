@@ -7,10 +7,15 @@ from pymongo import MongoClient
 ROOT_DIR = Path(__file__).resolve().parent.parent
 sys.path.insert(0, str(ROOT_DIR))
 
-from src.adapters.database.repository import MongoIoTRepository
-from src.adapters.rabbitmq.consumer import RabbitMQConsumer
-from src.adapters.rabbitmq.publisher import RabbitMQPublisher
-from src.application.normalize_iot_data_usecase import NormalizeIoTDataUseCase
+# Imports du projet apres sys.path.
+from src.adapters.database.repository import (  # noqa: E402
+    MongoIoTRepository,
+)
+from src.adapters.rabbitmq.consumer import RabbitMQConsumer  # noqa: E402
+from src.adapters.rabbitmq.publisher import RabbitMQPublisher  # noqa: E402
+from src.application.normalize_iot_data_usecase import (  # noqa: E402
+    NormalizeIoTDataUseCase,
+)
 
 MONGODB_URI = os.getenv("MONGODB_URI", "mongodb://localhost:27017")
 MONGODB_DATABASE = os.getenv("MONGODB_DATABASE", "urbanhub")

@@ -54,7 +54,7 @@ def test_consumer_callback_raises_for_invalid_json():
         consumer.callback(None, None, None, b"{invalid json")
 
 
-def test_publisher_handles_connection_error_and_does_not_raise(monkeypatch, capsys):
+def test_publisher_handles_connection_error(monkeypatch, capsys):
     publisher = RabbitMQPublisher()
 
     def fake_blocking_connection(_):
