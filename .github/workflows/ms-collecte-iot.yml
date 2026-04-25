@@ -45,7 +45,7 @@ jobs:
 
       - name: Lint flake8
         run: |
-          flake8 src test --config=.flake8 --output-file=flake8-report.txt
+          flake8 src test --output-file=flake8-report.txt
 
       - name: SonarQube Scan
         uses: SonarSource/sonarqube-scan-action@fd88b7d7ccbaefd23d8f36f73b59db7a3d246602 # v6.0.0
