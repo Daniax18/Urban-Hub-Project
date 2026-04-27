@@ -1,5 +1,5 @@
-pika
-pymongo
-pytest
-pytest-cov
-pytest-mock
+pika==1.2.0
+pymongo==4.6.3
+pytest==7.1.0
+pytest-cov==2.10.0
+pytest-mock==3.6.0
