@@ -4,6 +4,7 @@ from src.validator import app
 
 client = TestClient(app)
 
+
 def test_normal():
     response = client.post("/validate", json={"sensor": "co2", "value": 500})
 

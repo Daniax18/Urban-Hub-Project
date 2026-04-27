@@ -5,9 +5,11 @@ from pydantic import BaseModel, Field
 
 app = FastAPI(title="MS6 Validateur Capteur")
 
+
 class SensorData(BaseModel):
     sensor: str = Field(..., min_length=1)
     value: float
+
 
 THRESHOLDS = {
     "co2": {"moderate": 800, "critical": 1000, "unit": "ppm"},
@@ -16,6 +18,7 @@ THRESHOLDS = {
     "pm25": {"moderate": 25, "critical": 590, "unit": "ug/m"},
     "humidity_air": {"moderate": 10, "critical": 40, "unit": "%"},
 }
+
 
 def classify(sensor: str, value: float) -> dict:
     thresholds = THRESHOLDS.get(sensor)
