@@ -103,14 +103,9 @@ jobs:
           SNYK_TOKEN: ${{ secrets.SNYK_TOKEN }}
         with:
           args: --file=ms6-validateur-capteur/requirements.txt --severity-threshold=high
-        continue-on-error: true
-
-      - name: Save Snyk report
-        run: snyk test --file=requirements.txt 2>&1 | tee snyk-report.txt
 
       - name: Lint flake8
-        run: |
-          flake8 src test --output-file=flake8-report.txt
+        run: flake8 src test
 
   build:
     runs-on: ubuntu-latest
@@ -122,5 +117,4 @@ jobs:
 
       - name: Build Docker image
         run: docker build -t ms6-validateur-capteur:ci ./ms6-validateur-capteur
-
 
