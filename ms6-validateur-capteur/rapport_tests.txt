@@ -1,0 +1,13 @@
+....                                                                     [100%]
+- generated xml file: /home/daniax18/repos/Urban-Hub-Project/ms6-validateur-capteur/report_tests.xml -
+
+---------- coverage: platform linux, python 3.12.3-final-0 -----------
+Name               Stmts   Miss  Cover   Missing
+------------------------------------------------
+src/validator.py      25      0   100%
+------------------------------------------------
+TOTAL                 25      0   100%
+Coverage XML written to file coverage.xml
+
+Required test coverage of 80% reached. Total coverage: 100.00%
+4 passed in 0.94s
