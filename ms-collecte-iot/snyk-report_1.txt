@@ -1,0 +1,8 @@
+
+ ERROR   Unspecified Error (SNYK-CLI-0000)
+                                                                                        
+           Failed to test pip project                                                   
+
+Docs:    https://docs.snyk.io/scan-with-snyk/error-catalog#snyk-cli-0000 
+                                                                         
+ID:      urn:snyk:interaction:0b6edcda-7cee-4507-94fe-ecc5a5e5f80b 

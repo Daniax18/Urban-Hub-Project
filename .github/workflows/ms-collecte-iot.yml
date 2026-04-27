@@ -54,6 +54,17 @@ jobs:
         with:
           projectBaseDir: ms-collecte-iot
 
+      - name: Snyk - Scan dépendances Python
+        uses: snyk/actions/python@master
+        env:
+          SNYK_TOKEN: ${{ secrets.SNYK_TOKEN }}
+        with:
+          args: --file=ms-collecte-iot/requirements.txt --severity-threshold=high
+        continue-on-error: true  # pour générer le rapport même si vulnérabilités trouvées
+
+      - name: Save Snyk report
+        run: snyk test --file=ms-collecte-iot/requirements.txt 2>&1 | tee snyk-report.txt
+
   build:
     runs-on: ubuntu-latest
     needs: quality-gate
