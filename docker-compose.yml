@@ -119,6 +119,15 @@ services:
     command: ["uvicorn", "src.main:app", "--host", "0.0.0.0", "--port", "8003"]
     restart: unless-stopped
 
+  ms6:
+    build:
+      context: ./ms6-validateur-capteur
+    container_name: ms6-validateur-capteur
+    ports:
+      - "8000:8000"
+    command: ["uvicorn", "src.validator:app", "--host", "0.0.0.0", "--port", "8000"]
+    restart: unless-stopped
+
   ms-journalisation:
     build:
       context: ./ms-journalisation
