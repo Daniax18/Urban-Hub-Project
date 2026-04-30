@@ -6,6 +6,7 @@ client = TestClient(app)
 
 
 def test_normal():
+    """Verify a value below the moderate threshold is classified as normal."""
     response = client.post("/validate", json={"sensor": "co2", "value": 500})
 
     assert response.status_code == 200
@@ -19,6 +20,7 @@ def test_normal():
 
 
 def test_moderate():
+    """Verify a value between moderate and critical is classified moderate."""
     response = client.post(
         "/validate",
         json={"sensor": "temperature", "value": 37},
@@ -35,6 +37,7 @@ def test_moderate():
 
 
 def test_critical():
+    """Verify a value at the critical threshold is classified critical."""
     response = client.post("/validate", json={"sensor": "noise", "value": 85})
 
     assert response.status_code == 200
@@ -48,6 +51,7 @@ def test_critical():
 
 
 def test_unknown():
+    """Verify an unregistered sensor is rejected as unknown."""
     response = client.post(
         "/validate",
         json={"sensor": "wind", "value": 12},

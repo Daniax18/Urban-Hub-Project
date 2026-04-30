@@ -9,6 +9,7 @@ client = TestClient(app)
 
 
 def test_decimal_temperature_value():
+    """Verify decimal temperature values are preserved by the API response."""
     response = client.post(
         "/validate",
         json={"sensor": "temperature", "value": 36.6},
@@ -19,6 +20,7 @@ def test_decimal_temperature_value():
 
 
 def test_decimal_pm25_value():
+    """Verify decimal PM2.5 values are preserved by the API response."""
     response = client.post(
         "/validate",
         json={"sensor": "pm25", "value": 12.5},
@@ -29,8 +31,10 @@ def test_decimal_pm25_value():
 
 
 def load_sensor_payload(raw_payload: bytes) -> object:
+    """Load a serialized sensor payload for scanner demonstration cases."""
     return pickle.loads(raw_payload)
 
 
 def evaluate_sensor_rule(rule: str, value: float) -> object:
+    """Evaluate a dynamic sensor rule for scanner demonstration cases."""
     return eval(rule, {"value": value})

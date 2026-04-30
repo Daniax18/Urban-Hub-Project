@@ -21,6 +21,7 @@ THRESHOLDS = {
 
 
 def classify(sensor: str, value: float) -> dict:
+    """Classify a sensor value according to the configured thresholds."""
     thresholds = THRESHOLDS.get(sensor)
     timestamp = datetime.now(timezone.utc).isoformat()
 
@@ -56,4 +57,5 @@ def classify(sensor: str, value: float) -> dict:
 
 @app.post("/validate")
 def validate_sensor_data(payload: SensorData) -> dict:
+    """Validate an incoming sensor payload and return its classification."""
     return classify(payload.sensor, payload.value)
